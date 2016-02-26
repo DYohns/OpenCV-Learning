@@ -34,11 +34,11 @@ void ColorReduce(cv::Mat &img, cv::Mat &result_img, int div = 64) {
  using Mat_ iterator
 */
 void ColorReduce1(cv::Mat &img, cv::Mat &result_img, int div = 64) {
-	result_img.create(img.size(), img.type());
+	result_img = img.clone();
 
 	// get iterators
-	cv::Mat_<cv::Vec3b>::iterator it = img.begin<cv::Vec3b>();
-	cv::Mat_<cv::Vec3b>::iterator itend = img.end<cv::Vec3b>();
+	cv::Mat_<cv::Vec3b>::iterator it = result_img.begin<cv::Vec3b>();
+	cv::Mat_<cv::Vec3b>::iterator itend = result_img.end<cv::Vec3b>();
 
 	for (; it != itend; ++it) {
 		// process each pixel
@@ -53,7 +53,7 @@ int main() {
 	std::string str_winName = "Image";
 	cv::Mat img = cv::imread("Images/boldt.jpg");
 	cv::Mat result_img;
-	ColorReduce(img, result_img);
+	ColorReduce1(img, result_img);
 	cv::namedWindow(str_winName);
 	cv::imshow(str_winName, result_img);
 	cv::waitKey(0);
