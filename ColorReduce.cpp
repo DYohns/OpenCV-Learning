@@ -2,7 +2,10 @@
 #include<opencv2/highgui/highgui.hpp>
 #include<string>
 
-// fn: color reduce
+/*
+ fn: color reduce
+ using mask to round pixel value
+*/
 void ColorReduce(cv::Mat &img, cv::Mat &result_img, int div = 64) {
 	result_img.create(img.rows, img.cols, img.type());
 
@@ -23,6 +26,26 @@ void ColorReduce(cv::Mat &img, cv::Mat &result_img, int div = 64) {
 			data_ri[i] = (data_img[i] & mask) + div / 2;
 			//data[i] = data[i] / div * div + div / 2;
 		}
+	}
+}
+
+/*
+ fn: color reduce
+ using Mat_ iterator
+*/
+void ColorReduce1(cv::Mat &img, cv::Mat &result_img, int div = 64) {
+	result_img.create(img.size(), img.type());
+
+	// get iterators
+	cv::Mat_<cv::Vec3b>::iterator it = img.begin<cv::Vec3b>();
+	cv::Mat_<cv::Vec3b>::iterator itend = img.end<cv::Vec3b>();
+
+	for (; it != itend; ++it) {
+		// process each pixel
+		(*it)[0] = (*it)[0] / div * div + div / 2;
+		(*it)[1] = (*it)[1] / div * div + div / 2;
+		(*it)[2] = (*it)[2] / div * div + div / 2;
+		// end of pixel processing
 	}
 }
 
