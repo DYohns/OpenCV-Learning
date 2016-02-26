@@ -38,7 +38,7 @@ void ColorReduce1(cv::Mat &img, cv::Mat &result_img, int div = 64) {
 
 	// get iterators
 	cv::Mat_<cv::Vec3b>::iterator it = result_img.begin<cv::Vec3b>();
-	cv::Mat_<cv::Vec3b>::iterator itend = result_img.end<cv::Vec3b>();
+	cv::Mat_<cv::Vec3b>::const_iterator itend = result_img.end<cv::Vec3b>();
 
 	for (; it != itend; ++it) {
 		// process each pixel
